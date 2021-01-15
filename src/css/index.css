@@ -8,11 +8,18 @@ html {
 }
 
 .container {
-  margin: 0 auto;
-  padding: 0 10px;
-  max-width: 800px;
-  
+  margin: 0 0;
+
+  width: 100%;
   color: #424244;
+}
+
+@media screen and (min-width: 710px) {
+  .container {
+    max-width: 710px;
+    margin: 0 auto;
+    padding: 0 10px;
+  }
 }
 
 .headder {
@@ -27,19 +34,36 @@ h1 {
 .main {
   display: flex;
   justify-content: center;
-  width: 700px;
+  width: 100%;
   min-height: 450px;
   margin: 0 auto;
-
 }
+
 .cardBox {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  justify-content: flex-start;
   border: 1px solid #707070;
   border-radius: 5px;
-  width: 330px;
+  width: 98%;
   margin: 0 10px;
   min-height: 400px; 
+}
+
+@media screen and (min-width: 710px) {
+  .cardBox {
+    width: 330px;
+  }
+}
+
+.done {
+  display: none;
+}
+
+@media screen and (min-width: 710px) {
+  .done {
+    display: unset;
+  }
 }
 
 .card {
@@ -47,9 +71,16 @@ h1 {
   justify-content: space-between;
   border: 1px solid #424244;
   border-radius: 5px;
-  width: 300px;
+  width: 97%;
   height: 6rem;
-  margin: 15px 15px;
+  margin: 10px 5px;
+}
+
+@media screen and (min-width: 710px) {
+  .card {
+    width: 300px;
+    margin: 10px 15px;
+  }
 }
 
 .textArea {
@@ -57,28 +88,77 @@ h1 {
 }
 
 .seperate {
- width: 40px;
+ width: 20%;
  display: flex;
  flex-direction: column;
- font-size: 0.6rem;
- text-align: center;
-
 }
 
-.prio {
+@media screen and (min-width: 710px) {
+  .seperate {
+    width: 15%;
+  }
+}
+
+.seperate .prio {
   background-color: rgba(90, 245, 160, 1);
   width: auto;
   height: 50%;
+  line-height: 1.8rem;
+}
 
-
+.seperate .norm {
+  background-color: rgba(90, 245, 160, 0.3);
+  width: auto;
+  height: 50%;
+  line-height: 1.8rem;
 }
 
 .norm {
   background-color: rgba(90, 245, 160, 0.3);
-  width: auto;
-  height: 50%;
+  width: 20%;
+  height: 100%;
+}
+
+@media screen and (min-width: 710px) {
+  .norm {
+    width: 15%;
+  }
+}
+
+.prio {
+  background-color: rgba(90, 245, 160, 1);
+  width: 20%;
+  height: 100%;
+}
+
+@media screen and (min-width: 710px) {
+  .prio {
+    width: 15%;
+  }
+}
+
+.prio p {
+  padding: 10px 0;
+  margin: 0 0;
+  font-size: 0.6rem;
+  text-align: center; 
+}
+
+.norm p {
+  padding: 10px 0;
+  margin: 0 0;
+  font-size: 0.6rem;
+  text-align: center; 
+}
+
+.todoText {
+  padding: 10px 0;
+  padding-left: 10px;
+  font-size: 1rem;
+  text-align: center;
 }
 
 p {
-  padding: 10px 0;
+  font-size: 1rem;
+  margin: 0 0;
 }

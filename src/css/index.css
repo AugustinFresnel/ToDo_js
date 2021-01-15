@@ -142,6 +142,7 @@ h1 {
   margin: 0 0;
   font-size: 0.6rem;
   text-align: center; 
+  user-select: none;
 }
 
 .norm p {
@@ -149,6 +150,7 @@ h1 {
   margin: 0 0;
   font-size: 0.6rem;
   text-align: center; 
+  user-select: none;
 }
 
 .todoText {

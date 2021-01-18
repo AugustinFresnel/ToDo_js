@@ -19,6 +19,7 @@ html {
     max-width: 710px;
     margin: 0 auto;
     padding: 0 5px;
+    margin-bottom: 10px;
   }
 }
 
@@ -208,6 +209,11 @@ p {
   justify-content: center;
   background-color: #ffffff;
 }
+@media screen and (min-width: 710px) {
+  .footer {
+    display: none;
+  }
+}
 
 .swipeDot1 {
   width: 8px;
@@ -225,8 +231,3 @@ p {
   margin: 4px;
 }
 
-@media screen and (min-width: 710px) {
-  .swipeDot1, .swipeDot2 {
-    display: none;
-  }
-}

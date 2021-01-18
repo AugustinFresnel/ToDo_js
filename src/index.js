@@ -1,6 +1,5 @@
 const $ = jQuery;
 const todos = [];
-const finished = [];
 let counter = 0;
 
 const prio = $("#prioButton");
@@ -15,12 +14,12 @@ class ToDo {
         this.deleted = false;
     }
 
-    done() {
+    setDone() {
         this.done = true;
     }
 
-    delete() {
-        this.delete = true;
+    setDeleted() {
+        this.deleted = true;
     }
 }
 
@@ -34,7 +33,7 @@ const createToDo = (text, prio) => {
     counter++;
     let id = postName(counter);
     todos.push(new ToDo(id, text, prio));
-    renderToDo();
+    construction();
 }
 
 
@@ -42,8 +41,10 @@ const createToDo = (text, prio) => {
 $(document).ready(() => {
     $("#prioButton").on("click", () => {
         let text = $("textarea").val();
-        createToDo(text, true);
-        $("textarea").val("");
+        if (text !== '') { 
+            createToDo(text, true);
+            $("textarea").val("");
+        }
     })
 });
 
@@ -51,29 +52,107 @@ $(document).ready(() => {
 $(document).ready(() => {
     $("#normButton").on("click", () => {
         let text = $("textarea").val();
-        createToDo(text, false);
-        $("textarea").val("");
+        if (text !== '') { 
+            createToDo(text, false);
+            $("textarea").val("");
+        }
     })
 });
 
-const createCard = (text, prio) => {
+//event added for done Button
+$(document).ready(() => {
+    $(".todo").on("click", "#doneBtn", () => {
+       let id = $( "#doneBtn" ).parent().attr("id");
+       let element = todos.findIndex(el => el.id === id);
+       todos[element].setDone();
+       console.log(todos[element]);
+       construction();
+    })
+});
+
+//event added for delete Button
+$(document).ready(() => {
+    $(".done").on("click", "#deleteBtn", () => {
+       let id = $( "#deleteBtn" ).parent().attr("id");
+       let element = todos.findIndex(el => el.id === id);
+       todos[element].setDeleted();
+       console.log(todos[element]);
+       construction();
+    })
+});
+
+const createCard = (text, prio, id, done, deleted) => {
     const prioString = prio ? "prio" : "norm";
-    const html = `<div class="card todos">
-    <div class="todoText">
-        <p>${text}</p>
-    </div>
-    <div class=${prioString}>
-    </div>
-</div>`;
+    const doneBtn = !done ? "doneBtn" : "deleteBtn";
+    const doneString = done ? "closed" : ""; 
+    const html = 
+    `<div class="card todos ${doneString}" id="${id}">
+        <div class="todoText">
+            <p>${text}</p>
+        </div>
+        <div class="${prioString}" id="${doneBtn}">
+        </div>
+    </div>`;
     return html;
 
 }
 
 
-const renderToDo = () => {
-    $(".todos").remove();
-    todos.forEach(el => {
-        const html = createCard(el.text, el.prio)
+const renderToDo = (array) => {
+    array.forEach(el => {
+        const html = createCard(el.text, el.prio, el.id, el.done, el.deleted)
         $(".todo").append(html);
-    })
+    });
 }
+const renderDone = (array) => {
+    array.forEach(el => {
+        const html = createCard(el.text, el.prio, el.id, el.done, el.deleted)
+        $(".done").append(html);
+    });
+}
+
+const clearList = () => {
+    $(".todos").remove();
+}
+
+const sort = () => {
+    const prioArray = todos.filter(el => {
+        return (el.prio === true) && (el.done === false) && (el.deleted === false)
+    });
+    const normArray = todos.filter(el => {
+        return (el.prio === false) && (el.done === false) && (el.deleted === false)
+    });
+    const doneArray = todos.filter(el => {
+        return (el.done === true) && (el.deleted === false)
+    });
+
+    console.log(doneArray);
+    return {
+            prio: prioArray, 
+            norm: normArray, 
+            done: doneArray
+        };
+}
+
+const construction = () => {
+    clearList();
+    let obj = sort();
+
+    renderToDo(obj.prio);
+    renderToDo(obj.norm);
+    renderDone(obj.done);
+}
+
+//swipe for mobile view
+document.addEventListener("swiped-left", () => {
+    console.log("swiped");
+    $(".done").css("display", "initial");
+    $(".todo").css("display", "none");
+});
+
+//swipe for mobile view
+document.addEventListener("swiped-right", () => {
+    console.log("swiped");
+    $(".done").css("display", "none");
+    $(".todo").css("display", "initial");
+});

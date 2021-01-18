@@ -72,7 +72,7 @@ h1 {
   border: 1px solid #424244;
   border-radius: 5px;
   width: 97%;
-  height: 6rem;
+  height: 100px;
   margin: 10px 5px;
 }
 
@@ -135,6 +135,10 @@ h1 {
   .prio {
     width: 15%;
   }
+}
+
+#deleteBtn {
+  background-color: rgb(200, 55, 55);
 }
 
 .prio p {

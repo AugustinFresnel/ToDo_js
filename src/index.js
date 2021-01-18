@@ -44,7 +44,9 @@ $(document).ready(() => {
         if (text !== '') { 
             createToDo(text, true);
             $("textarea").val("");
+
         }
+    $("textarea").focus();
     })
 });
 
@@ -56,6 +58,7 @@ $(document).ready(() => {
             createToDo(text, false);
             $("textarea").val("");
         }
+    $("textarea").focus();
     })
 });
 

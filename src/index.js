@@ -65,7 +65,6 @@ $(document).ready(() => {
        let id = $( "#doneBtn" ).parent().attr("id");
        let element = todos.findIndex(el => el.id === id);
        todos[element].setDone();
-       console.log(todos[element]);
        construction();
     })
 });
@@ -76,7 +75,6 @@ $(document).ready(() => {
        let id = $( "#deleteBtn" ).parent().attr("id");
        let element = todos.findIndex(el => el.id === id);
        todos[element].setDeleted();
-       console.log(todos[element]);
        construction();
     })
 });
@@ -84,13 +82,15 @@ $(document).ready(() => {
 const createCard = (text, prio, id, done, deleted) => {
     const prioString = prio ? "prio" : "norm";
     const doneBtn = !done ? "doneBtn" : "deleteBtn";
-    const doneString = done ? "closed" : ""; 
+    const doneString = done ? "closed" : "todos"; 
     const html = 
-    `<div class="card todos ${doneString}" id="${id}">
+    `<div class="card ${doneString}" id="${id}">
         <div class="todoText">
             <p>${text}</p>
         </div>
         <div class="${prioString}" id="${doneBtn}">
+            <p class="hoverDone">done</p>
+            <p class="hoverDeleted">delete</p>
         </div>
     </div>`;
     return html;
@@ -113,6 +113,7 @@ const renderDone = (array) => {
 
 const clearList = () => {
     $(".todos").remove();
+    $(".closed").remove();
 }
 
 const sort = () => {
@@ -125,8 +126,6 @@ const sort = () => {
     const doneArray = todos.filter(el => {
         return (el.done === true) && (el.deleted === false)
     });
-
-    console.log(doneArray);
     return {
             prio: prioArray, 
             norm: normArray, 
@@ -145,14 +144,16 @@ const construction = () => {
 
 //swipe for mobile view
 document.addEventListener("swiped-left", () => {
-    console.log("swiped");
     $(".done").css("display", "initial");
     $(".todo").css("display", "none");
+    $(".swipeDot2").css("background-color", "rgb(45, 50, 60)")
+    $(".swipeDot1").css("background-color", "rgb(170, 170, 185)")
 });
 
 //swipe for mobile view
 document.addEventListener("swiped-right", () => {
-    console.log("swiped");
     $(".done").css("display", "none");
     $(".todo").css("display", "initial");
+    $(".swipeDot1").css("background-color", "rgb(45, 50, 60)")
+    $(".swipeDot2").css("background-color", "rgb(170, 170, 185)")
 });
